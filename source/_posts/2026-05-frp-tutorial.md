@@ -1,7 +1,8 @@
 ---
-title: Getting Started with FRP: A Comprehensive Setup Guide
+title: Getting Started with FRP - A Comprehensive Setup Guide
 date: 2026-05-15 19:48:15
 tags:
+categories: [Articles]
 ---
 
 ## Introduction
@@ -49,17 +50,18 @@ bindPort = 7000
 
 # 2. Authentication setting
 auth.method = "token"
-auth.token = "REPLACE WITH YOUR STRONG PASSWORD"
+auth.token = "STRONG_PASSWORD"
 
 # 3. Web dashboard (Check status)
 webServer.addr = "0.0.0.0"
 webServer.port = 7500        # Access IP:7500 by browser
-webServer.user = "DASHBOARD USERNAME"
-webServer.password = "DASHBOARD PASSWORD"
+webServer.user = "DASHBOARD_USERNAME"
+webServer.password = "DASHBOARD_PASSWORD"
 
 # 4. Port white list
 allowPorts = [
-  { start = 5432, end = 5432 }
+  { start = 5432, end = 5432 },
+  { start = 10000, end = 10005 }
 ]
 ```
 
@@ -83,18 +85,32 @@ serverPort = 7000            # Must be the same as bindPort in frps.toml
 
 # 2. Authetication setting
 auth.method = "token"
-auth.token = "REPLACE WITH YOUR STRONG PASSWORD" # Must be the same as auth.token in frps.toml
+auth.token = "STRONG_PASSWORD" # Must be the same as auth.token in frps.toml
 
 # 3. Enable TLS
 transport.tls.enable = true
 
 # 4. Proxy setting
 [[proxies]]
-name = "proxy-service"
+name = "postgresql"          # Name must be unique
 type = "tcp"                 # Protocol
 localIP = "127.0.0.1"
 localPort = 5432
 remotePort = 5432
+
+[[proxies]]
+name = "ssh"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6000
+
+[[proxies]]
+name = "my-web"
+type = "http"
+localIP = "127.0.0.1"
+localPort = 80
+customDomains = ["www.yourdomain.com"]
 ```
 
 3. Start the client:
