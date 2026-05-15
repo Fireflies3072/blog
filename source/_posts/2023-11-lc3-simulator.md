@@ -3,7 +3,7 @@ title: Learning Assembly Just Got Easier with a Modern LC-3 Computer Simulator
 date: 2023-11-03 14:54:13
 tags: [programming]
 categories: [Projects]
-cover: https://fireflies3072.blob.core.windows.net/blog/images/2023-11-lc3-simulator/cover.jpg
+cover: https://cdn.fireflies3072.com/blog/2023-11-lc3-simulator/cover.jpg
 mathjax: true
 excerpt: The LC-3 is a time-tested educational tool, perfectly designed to teach computer architecture and assembly language programming. However, the existing simulators often feel like a relic of the past. That’s why we built the LC-3 Simulator—a modern, responsive, and keyboard-friendly tool to make learning assembly intuitive and engaging.
 ---
@@ -46,15 +46,15 @@ All ALU and load operations correctly update the **N**, **Z**, and **P** flags, 
 
 **Main interface**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2023-11-lc3-simulator/gui1.jpg)
+![](https://cdn.fireflies3072.com/blog/2023-11-lc3-simulator/gui1.jpg)
 
 **Write code file**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2023-11-lc3-simulator/gui2.jpg)
+![](https://cdn.fireflies3072.com/blog/2023-11-lc3-simulator/gui2.jpg)
 
 **Step over each instruction**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2023-11-lc3-simulator/gui3.jpg)
+![](https://cdn.fireflies3072.com/blog/2023-11-lc3-simulator/gui3.jpg)
 
 
 

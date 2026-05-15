@@ -3,7 +3,7 @@ title: Mastering Control with PyController Library
 date: 2025-09-20 15:30:09
 tags: [control, programming]
 categories: [Projects]
-cover: https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/cover.jpg
+cover: https://cdn.fireflies3072.com/blog/2025-09-control-library/cover.jpg
 mathjax: true
 excerpt: The world of robotics and automation hinges on effective control systems. Whether it's a drone landing precisely on a moving platform, a chemical plant maintaining a perfect reaction temperature, or a complex spacecraft navigating the cosmos, controllers are the brains that manage system dynamics. PyController is an open-source Python library designed to provide a cohesive framework for implementing, testing, and comparing cutting-edge control algorithms across diverse simulation environments.
 ---
@@ -70,27 +70,27 @@ The **Rocket Lander** environment simulates the challenging task of landing a re
 
 The specialized `PID_RocketLander` handles the multi-input/multi-output (MIMO) nature of the problem, controlling main engine thrust, side-engine forces, and nozzle vectoring.
 
-<video width="500" height="400" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_pid.mp4" type="video/mp4">   Not support video </video>
+<video width="500" height="400" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_pid.mp4" type="video/mp4">   Not support video </video>
 
 **MPC**
 
 To use MPC, a calculated system matrix is needed for the controller to optimize the multi-dimensional thrust and vectoring inputs over a prediction horizon to achieve a soft and accurate touchdown.
 
-<video width="500" height="400" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_mpc.mp4" type="video/mp4">   Not support video </video>
+<video width="500" height="400" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_mpc.mp4" type="video/mp4">   Not support video </video>
 
 **DeePC with data from PID controller**
 
 Data is collected from the rocket's flight and used to predict the required thrust and vectoring for a stable descent.
 
-<video width="500" height="400" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_deepc_pid.mp4" type="video/mp4">   Not support video </video>
+<video width="500" height="400" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_deepc_pid.mp4" type="video/mp4">   Not support video </video>
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_deepc_pid.png)
+![](https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_deepc_pid.png)
 
 **DeePC with data from random actions**
 
-<video width="500" height="400" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_deepc_random.mp4" type="video/mp4">   Not support video </video>
+<video width="500" height="400" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_deepc_random.mp4" type="video/mp4">   Not support video </video>
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rl_deepc_random.png)
+![](https://cdn.fireflies3072.com/blog/2025-09-control-library/rl_deepc_random.png)
 
 
 
@@ -102,11 +102,11 @@ The simulation is based on **Newton's Law of Cooling**, where the rate of temper
 
 **PID**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rt_deepc_random.png)
+![](https://cdn.fireflies3072.com/blog/2025-09-control-library/rt_deepc_random.png)
 
 **DeePC with data from random actions**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/rt_deepc_random.png)
+![](https://cdn.fireflies3072.com/blog/2025-09-control-library/rt_deepc_random.png)
 
 
 
@@ -118,13 +118,13 @@ The **Inverted Pendulum** is a canonical problem in control theory. It involves 
 
 Although a standard PID can respond to position and angle at the same time with a weight, its performance is very poor. A cascaded PID is a applied here. The first PID takes position input and gives a target angle output. The second PID takes the actual angle and target angle and gives force output.
 
-<video width="480" height="480" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/ip_pid.mp4" type="video/mp4">   Not support video </video>
+<video width="480" height="480" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/ip_pid.mp4" type="video/mp4">   Not support video </video>
 
 **DeePC with data from PID controller**
 
 Collecting data using the cascaded PID controller described earlier allows DeePC to replicate its stable balancing behavior, as illustrated in the following video.
 
-<video width="480" height="480" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/ip_deepc_pid.mp4" type="video/mp4">   Not support video </video>
+<video width="480" height="480" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/ip_deepc_pid.mp4" type="video/mp4">   Not support video </video>
 
 However, this initial implementation isn't entirely stable. The PID controller tends to produce control actions very close to zero, resulting in a Hankel matrix with a low rank of around 17. For DeePC to be effective, this matrix requires a full rank, which for our setup ($T_{\text{ini}}=3$, $T_f=5$, $u_{\text{size}}=1$, $y_{\text{size}}=4$) is calculated as $(T_{\text{ini}} + T_f) \times (u_{\text{size}} + y_{\text{size}}) = 40$.
 
@@ -134,9 +134,9 @@ To resolve the rank deficiency, we introduced a small amount of Gaussian noise t
 
 It is important to note that these results are highly sensitive to randomness in the data collection process. By default, we gather enough trajectories to form a Hankel matrix with $(T_{\text{ini}} + T_f) \times (u_{\text{size}} + y_{\text{size}} + 2) = 56$ columns. Increasing the volume of data helps mitigate this randomness, leading to more consistent and improved performance. For instance, after we increase the columns of the Hankel matrix to 200, the controller becomes much more stable, as demonstrated in the following video.
 
-<video width="480" height="480" controls>   <source src="https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/ip_deepc_pid2.mp4" type="video/mp4">   Not support video </video>
+<video width="480" height="480" controls>   <source src="https://cdn.fireflies3072.com/blog/2025-09-control-library/ip_deepc_pid2.mp4" type="video/mp4">   Not support video </video>
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-09-control-library/ip_deepc_pid2.png)
+![](https://cdn.fireflies3072.com/blog/2025-09-control-library/ip_deepc_pid2.png)
 
 
 

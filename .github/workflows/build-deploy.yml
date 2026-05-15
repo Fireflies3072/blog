@@ -32,7 +32,7 @@ jobs:
         run: npm i
 
       - name: Process markdown posts
-        run: python3 scripts/markdown_processor.py source/_posts
+        run: python3 python_scripts/markdown_processor.py source/_posts
 
       - name: Build site
         run: npm run build

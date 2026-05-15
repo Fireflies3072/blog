@@ -1,7 +1,10 @@
 ---
 title: PostgreSQL Installation and Configuration Guide
 date: 2026-05-15 21:44:57
-tags:
+tags: [database]
+categories: [Articles]
+cover: https://cdn.fireflies3072.com/blog/2026-05-postgresql-installation/cover.png
+excerpt: PostgreSQL is a powerful, open-source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. This guide will walk you through the installation on Ubuntu, basic configuration, and setting up a management tool.
 ---
 
 ## Introduction
@@ -56,15 +59,11 @@ The password is just for authentication purpose. Without certificate, the transm
 
 ### Existing Certificate
 
-1. Create a directory to manage SSL certificates. Remember to use the correct version and directory.
+1. Put certificate files in data directory.
 
 ```bash
-cd /etc/postgresql/18/main
-sudo mkdir ssl
-cd ssl
+cd /var/lib/postgresql/18/main
 ```
-
-Then put certificate files in this folder.
 
 2. Modify permission
 
@@ -88,8 +87,8 @@ sudo vim postgresql.conf
 
 ```toml
 ssl = on
-ssl_cert_file = '/etc/postgresql/18/main/ssl/server.pem'
-ssl_key_file = '/etc/postgresql/18/main/ssl/server.key'
+ssl_cert_file = 'server.pem'
+ssl_key_file = 'server.key'
 ```
 
 4. Restart PostgreSQL to apply the changes:

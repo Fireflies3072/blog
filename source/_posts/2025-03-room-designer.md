@@ -3,7 +3,7 @@ title: LLM-supported 3D Modeling Tool for Radio Radiance Field Reconstruction
 date: 2025-03-09 16:51:21
 tags: [AI, LLM, programming]
 categories: [Projects]
-cover: https://fireflies3072.blob.core.windows.net/blog/images/2025-03-room-designer/cover.jpg
+cover: https://cdn.fireflies3072.com/blog/2025-03-room-designer/cover.jpg
 mathjax: true
 excerpt: The paper introduces a locally deployable tool that uses fine-tuned language models (T5-mini) and generative 3D frameworks within Blender to simplify the creation of complex 3D environments via a chat interface, significantly reducing the modeling complexity required for Radio Radiance Field (RRF) reconstruction in wireless research.
 ---
@@ -13,7 +13,7 @@ excerpt: The paper introduces a locally deployable tool that uses fine-tuned lan
 Imagine designing a complex environment for cutting-edge wireless research just by describing it in a chat. That's the core idea behind a new **LLM-supported 3D modeling tool** developed to simplify the creation of 3D environments for **Radio Radiance Field (RRF)** reconstruction. This tool dramatically lowers the barrier to entry for researchers, making it much easier to build the precise 3D scenes needed for next-generation channel modeling.
 
 💡 **Status:** Submitted to ICC 2026 (Under Review).
-📥 **Download:** [Click here to view the Full Paper (PDF)](https://fireflies3072.blob.core.windows.net/blog/files/2025-03-room-designer/3D_modeling_ICC_2026.pdf)
+📥 **Download:** [Click here to view the Full Paper (PDF)](https://cdn.fireflies3072.com/blog/2025-03-room-designer/3D_modeling.pdf)
 
 ### The Challenge: RRF and 3D Modeling
 
@@ -25,7 +25,7 @@ However, accurately reconstructing an RRF, for example with methods like RF-3DGS
 
 This new tool addresses the complexity of 3D modeling by integrating locally deployed Large Language Models (LLMs) and generative frameworks with the industry-standard **Blender** software. The result is an intuitive, chat-based interface that lets users create and manipulate complex 3D models using simple natural language commands.
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-03-room-designer/structure.drawio.png)
+![](https://cdn.fireflies3072.com/blog/2025-03-room-designer/structure.drawio.png)
 
 ### How the Tool Works: The Core Components
 
@@ -47,9 +47,8 @@ The tool was successfully demonstrated by constructing two complex indoor enviro
 
 **NIST**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-03-room-designer/nist.jpg)
+![](https://cdn.fireflies3072.com/blog/2025-03-room-designer/nist.jpg)
 
 **UW-Madison**
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2025-03-room-designer/uwm_lab.jpg)
-
+![](https://cdn.fireflies3072.com/blog/2025-03-room-designer/uwm_lab.jpg)

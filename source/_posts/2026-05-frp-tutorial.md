@@ -3,6 +3,7 @@ title: Getting Started with FRP - A Comprehensive Setup Guide
 date: 2026-05-15 19:48:15
 tags:
 categories: [Articles]
+cover: https://cdn.fireflies3072.com/blog/2026-05-frp-tutorial/architecture.jpg
 ---
 
 ## Introduction

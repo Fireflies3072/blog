@@ -3,7 +3,7 @@ title: Lite-ESRGAN, High-Quality Super-Resolution for Everyone (Even on Low-VRAM
 date: 2022-07-21 15:20:41
 tags: [AI, programming]
 categories: [Projects]
-cover: https://fireflies3072.blob.core.windows.net/blog/images/2022-07-lite-esrgan/comparison1.jpg
+cover: https://cdn.fireflies3072.com/blog/2022-07-lite-esrgan/comparison1.jpg
 excerpt: Super-resolution (SR) models like Real-ESRGAN have revolutionized image upscaling, delivering incredible clarity and detail. However, their computational demands, particularly VRAM consumption, often put them out of reach for users without high-end GPUs. Enter Lite-ESRGAN, a project built to democratize high-quality SR. It is a streamlined, low-VRAM implementation of the powerful Real-ESRGAN model, ensuring you can achieve professional-grade upscaling without needing a massive graphics card.
 ---
 
@@ -73,6 +73,6 @@ The proof of any super-resolution model is in the results. Below are side-by-sid
 
 **Same-scale comparison:** (Left: Linear, Right: Lite-ESRGAN)
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2022-07-lite-esrgan/comparison1.jpg)
+![](https://cdn.fireflies3072.com/blog/2022-07-lite-esrgan/comparison1.jpg)
 
-![](https://fireflies3072.blob.core.windows.net/blog/images/2022-07-lite-esrgan/comparison2.jpg)
+![](https://cdn.fireflies3072.com/blog/2022-07-lite-esrgan/comparison2.jpg)
