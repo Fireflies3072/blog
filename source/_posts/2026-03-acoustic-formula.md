@@ -3,7 +3,7 @@ title: Electro-Acoustical Engineering - Formula Sheet
 date: 2026-03-19 20:32:45
 tags: [signal]
 categories: [Articles]
-cover: https://cdn.fireflies3072.com/blog/2026-03-acoustic-formula/cover.webp
+cover: https://cdn.fireflies3072.com/blog/2026-03-acoustic-formula/cover.jpg
 mathjax: true
 excerpt: A comprehensive formula sheet for electro-acoustical engineering, covering fundamental wave parameters, wave equations, acoustic impedance, power, intensity, and spatial modulation.
 ---

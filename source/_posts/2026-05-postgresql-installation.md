@@ -69,25 +69,25 @@ cd /var/lib/postgresql/18/main
 
 ```bash
 # Modify owner and group
-sudo chown postgres:postgres server.key server.pem
+sudo chown postgres:postgres server.key server.crt
 
 # Set private key permission (editable by owner)
 sudo chmod 600 server.key
 
 # Set certificate permission (read-only)
-sudo chmod 644 server.pem
+sudo chmod 644 server.crt
 ```
 
 3. Modify configuration file
 
 ```bash
-cd ..
+cd /etc/
 sudo vim postgresql.conf
 ```
 
 ```toml
 ssl = on
-ssl_cert_file = 'server.pem'
+ssl_cert_file = 'server.crt'
 ssl_key_file = 'server.key'
 ```
 
