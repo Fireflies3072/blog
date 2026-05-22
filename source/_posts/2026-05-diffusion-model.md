@@ -60,11 +60,11 @@ Let’s compute the first few steps to reveal the pattern, applying the rule of 
 
 - **For $t = 2$:**
   $$
-  \begin{align*}
+  \begin{align}
   x_2 &= \sqrt{\alpha_2}\, x_1 + \sqrt{1 - \alpha_2}\, \epsilon_2 \\
       &= \sqrt{\alpha_2}\left(\sqrt{\alpha_1} x_0 + \sqrt{1 - \alpha_1}\, \epsilon_1\right) + \sqrt{1 - \alpha_2}\, \epsilon_2 \\
       &= \sqrt{\alpha_2\alpha_1}\, x_0 + \sqrt{\alpha_2(1 - \alpha_1)}\, \epsilon_1 + \sqrt{1 - \alpha_2}\, \epsilon_2
-  \end{align*}
+  \end{align}
   $$
   Now we merge the two noise terms $\sqrt{\alpha_2(1 - \alpha_1)}\, \epsilon_1$ and $\sqrt{1 - \alpha_2}\, \epsilon_2$. Since both $\epsilon_1$ and $\epsilon_2$ are independent $\mathcal{N}(0, I)$, the combined noise is $\mathcal{N}(0, \sigma_{combined}^2)$ where:
   $$
@@ -78,11 +78,11 @@ Let’s compute the first few steps to reveal the pattern, applying the rule of 
 - **For $t = 3$:**
   Following the same logic:
   $$
-  \begin{align*}
+  \begin{align}
   x_3 &= \sqrt{\alpha_3}\, x_2 + \sqrt{1 - \alpha_3}\, \epsilon_3 \\
       &= \sqrt{\alpha_3}(\sqrt{\alpha_2\alpha_1}\, x_0 + \sqrt{1 - \alpha_2\alpha_1}\, \bar{\epsilon}_2) + \sqrt{1 - \alpha_3}\, \epsilon_3 \\
       &= \sqrt{\alpha_3\alpha_2\alpha_1}\, x_0 + \sqrt{\alpha_3(1 - \alpha_2\alpha_1)}\, \bar{\epsilon}_2 + \sqrt{1 - \alpha_3}\, \epsilon_3
-  \end{align*}
+  \end{align}
   $$
   Merging the noise terms again:
   $$
@@ -174,6 +174,7 @@ Multiplying these Gaussian densities together, the exponent part of $q(x_{t-1} |
 $$
 \text{Exp} \propto \exp \left( -\frac{1}{2} \left[ \frac{(x_t - \sqrt{\alpha_t}x_{t-1})^2}{\beta_t} + \frac{(x_{t-1} - \sqrt{\bar{\alpha}_{t-1}}x_0)^2}{1 - \bar{\alpha}_{t-1}} - \frac{(x_t - \sqrt{\bar{\alpha}_t}x_0)^2}{1 - \bar{\alpha}_t} \right] \right)
 $$
+
 We want the exponent to be in the form of this:
 $$
 -\frac{1}{2}\frac{(x_{t-1} - \tilde{\mu}_t)^2}{\tilde{\beta}_t}
@@ -187,11 +188,11 @@ Constant can be removed from the exponent because $e^{c+x} = e^c \cdot e^x$ wher
 
 Expand everything and combine:
 $$
-\begin{align*}
+\begin{align}
 \mathbf{E} &= -\frac{1}{2} \left[ \frac{(x_t - \sqrt{\alpha_t}x_{t-1})^2}{\beta_t} + \frac{(x_{t-1} - \sqrt{\bar{\alpha}_{t-1}}x_0)^2}{1 - \bar{\alpha}_{t-1}} - \frac{(x_t - \sqrt{\bar{\alpha}_t}x_0)^2}{1 - \bar{\alpha}_t} \right] \\
 &= -\frac{1}{2} \left[ \frac{x_t^2 - 2\sqrt{\alpha_t}x_t x_{t-1} + \alpha_t x_{t-1}^2}{\beta_t} + \frac{x_{t-1}^2 - 2\sqrt{\bar{\alpha}_{t-1}}x_0 x_{t-1} + \bar{\alpha}_{t-1}x_0^2}{1 - \bar{\alpha}_{t-1}} + \text{constant} \right] \\
 &= -\frac{1}{2} \left[ \left( \frac{\alpha_t}{\beta_t} + \frac{1}{1 - \bar{\alpha}_{t-1}} \right) x_{t-1}^2 - 2 \left( \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}} \right) x_{t-1} + \text{constant} \right]
-\end{align*}
+\end{align}
 $$
 Now we have this form in the exponent:
 $$
@@ -212,12 +213,12 @@ $$
 $$
 So:
 $$
-\begin{align*}
+\begin{align}
 \frac{1}{\tilde{\beta}_t} = A &= \frac{\alpha_t}{\beta_t} + \frac{1}{1 - \bar{\alpha}_{t-1}} \\
 &= \frac{\alpha_t(1 - \bar{\alpha}_{t-1}) + \beta_t}{\beta_t(1 - \bar{\alpha}_{t-1})} \\
 &= \frac{\left(\alpha_t + \beta_t\right) - \alpha_t\bar{\alpha}_{t-1}}{\beta_t(1 - \bar{\alpha}_{t-1})} \\
 &= \frac{1 - \bar{\alpha}_t}{\beta_t(1 - \bar{\alpha}_{t-1})}
-\end{align*}
+\end{align}
 $$
 Take the inverse:
 $$
@@ -225,12 +226,12 @@ $$
 $$
 Similarly:
 $$
-\begin{align*}
+\begin{align}
 \tilde{\mu}_t = \frac{B}{A} &= \tilde{\beta}_t \cdot \left( \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}} \right) \\
 &= \left( \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \cdot \beta_t \right) \cdot \left( \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}} \right) \\
 &= \left( \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \cdot \beta_t \right) \cdot \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \left( \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \cdot \beta_t \right) \cdot \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}} \\
 &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} x_0
-\end{align*}
+\end{align}
 $$
 Finally, we find that $q(x_{t-1} | x_t, x_0)$ is also a Gaussian distribution:
 $$
@@ -262,7 +263,7 @@ x_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left(x_t - \sqrt{1 - \bar{\alpha}_t} \eps
 $$
 If we substitute this definition of $x_0$ back into the complex $\tilde{\mu}_t$ equation above, a gorgeous simplification happens after the algebra settles:
 $$
-\begin{align*}
+\begin{align}
 \tilde{\mu}_t(x_t, x_0) &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} \cdot \frac{1}{\sqrt{\bar{\alpha}_t}} \left(x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon\right) \\
 &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{(1 - \bar{\alpha}_t)\sqrt{\bar{\alpha}_t}} x_t - \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t \cdot \sqrt{1 - \bar{\alpha}_t}}{(1 - \bar{\alpha}_t)\sqrt{\bar{\alpha}_t}} \epsilon \\
 &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t + \frac{\beta_t}{\sqrt{\alpha_t}(1 - \bar{\alpha}_t)} x_t - \frac{\beta_t \cdot \sqrt{1 - \bar{\alpha}_t}}{\sqrt{\alpha_t}(1 - \bar{\alpha}_t)} \epsilon \\
@@ -271,7 +272,7 @@ $$
 &= \frac{1 - \bar{\alpha}_{t}}{\sqrt{\alpha_t}(1 - \bar{\alpha}_t)} x_t - \frac{\beta_t}{\sqrt{\alpha_t}\sqrt{1 - \bar{\alpha}_t}} \epsilon \\
 &= \frac{1}{\sqrt{\alpha_t}} x_t - \frac{\beta_t}{\sqrt{\alpha_t}\sqrt{1 - \bar{\alpha}_t}} \epsilon \\
 &= \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon \right)
-\end{align*}
+\end{align}
 $$
 Look at this elegant result! The only unknown variable left in this ground-truth mean is $\epsilon$—the random noise that was added at timestep $t$.
 
@@ -305,10 +306,10 @@ $$
 
 We sample a random noise vector $z \sim \mathcal{N}(0, I)$ at each step to ensure generation diversity. The final **sampling formula** for a single reverse step is:
 $$
-\begin{align*}
+\begin{align}
 x_{t-1} &= \mu_\theta(x_t, t) + \sigma_t z \\
 &= \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right) + \sigma_t z, \quad \text{where } z \sim \mathcal{N}(0, I)
-\end{align*}
+\end{align}
 $$
 
 > **Note on the final step:** When $t=1$, we are generating the final clean image $x_0$. At this last step, we no longer add random noise, so we set $z = 0$ to get the clean deterministic output.
