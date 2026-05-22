@@ -23,18 +23,21 @@ Each step in the forward process is defined as:
 $$
 q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t I)
 $$
+
 where $\beta_t$ is a variance schedule and $I$ denotes the identity matrix, ensuring that the noise is added independently to each vector dimension.
 
 The formula for adding noise in a single diffusion step is:
 $$
-x_t = \sqrt{1 - \beta_t} \, x_{t-1} + \sqrt{\beta_t} \, \epsilon_t, \qquad \epsilon_t \sim \mathcal{N}(0, I)
+x_t = \sqrt{1 - \beta_t} \thinspace x_{t-1} + \sqrt{\beta_t} \thinspace \epsilon_t, \qquad \epsilon_t \sim \mathcal{N}(0, I)
 $$
+
 This means at each timestep $t$, we generate $x_t$ by blending the previous sample $x_{t-1}$ with Gaussian noise $\epsilon_t$ scaled by the current variance $\beta_t$.
 
 Although it looks like a step-by-step process, a key property of the forward process is that we can sample $x_t$ at any arbitrary time step $t$ directly from $x_0$. Let $\alpha_t = 1 - \beta_t$ and $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$. Then:
 $$
 q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) I)
 $$
+
 Or equivalently:
 $$
 x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)
@@ -44,7 +47,7 @@ $$
 
 We begin with the recurrence relation for the forward diffusion process:
 $$
-x_t = \sqrt{\alpha_t}\, x_{t-1} + \sqrt{1 - \alpha_t}\, \epsilon_t,\qquad \epsilon_t \sim \mathcal{N}(0, I)
+x_t = \sqrt{\alpha_t}\thinspace x_{t-1} + \sqrt{1 - \alpha_t}\thinspace \epsilon_t,\qquad \epsilon_t \sim \mathcal{N}(0, I)
 $$
 
 Each $\epsilon_t$ follows a standard normal distribution. A key property of normal distributions is that the addition of two independent normal distributions $X \sim \mathcal{N}(\mu_1, \sigma_1^2)$ and $Y \sim \mathcal{N}(\mu_2, \sigma_2^2)$ results in a new normal distribution with mean $\mu_1 + \mu_2$ and standard deviation $\sqrt{\sigma_1^2 + \sigma_2^2}$.
@@ -55,48 +58,53 @@ Let’s compute the first few steps to reveal the pattern, applying the rule of 
 
 - **For $t = 1$:**
   $$
-  x_1 = \sqrt{\alpha_1}\, x_0 + \sqrt{1 - \alpha_1}\, \epsilon_1
+  x_1 = \sqrt{\alpha_1}\thinspace x_0 + \sqrt{1 - \alpha_1}\thinspace \epsilon_1
   $$
 
 - **For $t = 2$:**
   $$
   \begin{align}
-  x_2 &= \sqrt{\alpha_2}\, x_1 + \sqrt{1 - \alpha_2}\, \epsilon_2 \\
-      &= \sqrt{\alpha_2}\left(\sqrt{\alpha_1} x_0 + \sqrt{1 - \alpha_1}\, \epsilon_1\right) + \sqrt{1 - \alpha_2}\, \epsilon_2 \\
-      &= \sqrt{\alpha_2\alpha_1}\, x_0 + \sqrt{\alpha_2(1 - \alpha_1)}\, \epsilon_1 + \sqrt{1 - \alpha_2}\, \epsilon_2
+  x_2 &= \sqrt{\alpha_2}\thinspace x_1 + \sqrt{1 - \alpha_2}\thinspace \epsilon_2 \\
+      &= \sqrt{\alpha_2}\left(\sqrt{\alpha_1} x_0 + \sqrt{1 - \alpha_1}\thinspace \epsilon_1\right) + \sqrt{1 - \alpha_2}\thinspace \epsilon_2 \\
+      &= \sqrt{\alpha_2\alpha_1}\thinspace x_0 + \sqrt{\alpha_2(1 - \alpha_1)}\thinspace \epsilon_1 + \sqrt{1 - \alpha_2}\thinspace \epsilon_2
   \end{align}
   $$
-  Now we merge the two noise terms $\sqrt{\alpha_2(1 - \alpha_1)}\, \epsilon_1$ and $\sqrt{1 - \alpha_2}\, \epsilon_2$. Since both $\epsilon_1$ and $\epsilon_2$ are independent $\mathcal{N}(0, I)$, the combined noise is $\mathcal{N}(0, \sigma_{combined}^2)$ where:
+
+  Now we merge the two noise terms $\sqrt{\alpha_2(1 - \alpha_1)}\thinspace \epsilon_1$ and $\sqrt{1 - \alpha_2}\thinspace \epsilon_2$. Since both $\epsilon_1$ and $\epsilon_2$ are independent $\mathcal{N}(0, I)$, the combined noise is $\mathcal{N}(0, \sigma_{combined}^2)$ where:
   $$
   \sigma_{combined}^2 = \left(\sqrt{\alpha_2(1 - \alpha_1)}\right)^2 + \left(\sqrt{1 - \alpha_2}\right)^2 = \alpha_2 - \alpha_2\alpha_1 + 1 - \alpha_2 = 1 - \alpha_2\alpha_1
   $$
+
   Thus, by writing $\bar{\epsilon}_2 \sim \mathcal{N}(0, I)$, we have:
   $$
-  x_2 = \sqrt{\alpha_2\alpha_1}\, x_0 + \sqrt{1 - \alpha_2\alpha_1}\, \bar{\epsilon}_2
+  x_2 = \sqrt{\alpha_2\alpha_1}\thinspace x_0 + \sqrt{1 - \alpha_2\alpha_1}\thinspace \bar{\epsilon}_2
   $$
   
 - **For $t = 3$:**
   Following the same logic:
   $$
   \begin{align}
-  x_3 &= \sqrt{\alpha_3}\, x_2 + \sqrt{1 - \alpha_3}\, \epsilon_3 \\
-      &= \sqrt{\alpha_3}(\sqrt{\alpha_2\alpha_1}\, x_0 + \sqrt{1 - \alpha_2\alpha_1}\, \bar{\epsilon}_2) + \sqrt{1 - \alpha_3}\, \epsilon_3 \\
-      &= \sqrt{\alpha_3\alpha_2\alpha_1}\, x_0 + \sqrt{\alpha_3(1 - \alpha_2\alpha_1)}\, \bar{\epsilon}_2 + \sqrt{1 - \alpha_3}\, \epsilon_3
+  x_3 &= \sqrt{\alpha_3}\thinspace x_2 + \sqrt{1 - \alpha_3}\thinspace \epsilon_3 \\
+      &= \sqrt{\alpha_3}(\sqrt{\alpha_2\alpha_1}\thinspace x_0 + \sqrt{1 - \alpha_2\alpha_1}\thinspace \bar{\epsilon}_2) + \sqrt{1 - \alpha_3}\thinspace \epsilon_3 \\
+      &= \sqrt{\alpha_3\alpha_2\alpha_1}\thinspace x_0 + \sqrt{\alpha_3(1 - \alpha_2\alpha_1)}\thinspace \bar{\epsilon}_2 + \sqrt{1 - \alpha_3}\thinspace \epsilon_3
   \end{align}
   $$
+
   Merging the noise terms again:
   $$
   \sigma_{combined}^2 = \alpha_3(1 - \alpha_2\alpha_1) + 1 - \alpha_3 = \alpha_3 - \alpha_3\alpha_2\alpha_1 + 1 - \alpha_3 = 1 - \alpha_3\alpha_2\alpha_1
   $$
+
   So, we have:
   $$
-  x_3 = \sqrt{\alpha_3\alpha_2\alpha_1}\, x_0 + \sqrt{1 - \alpha_3\alpha_2\alpha_1}\, \bar{\epsilon}_3
+  x_3 = \sqrt{\alpha_3\alpha_2\alpha_1}\thinspace x_0 + \sqrt{1 - \alpha_3\alpha_2\alpha_1}\thinspace \bar{\epsilon}_3
   $$
 
 By induction, we can generalize this pattern for any arbitrary timestep $t$:
 $$
-x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)
+x_t = \sqrt{\bar{\alpha}_t}\thinspace x_0 + \sqrt{1 - \bar{\alpha}_t}\thinspace \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)
 $$
+
 where $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$. This powerful result shows that we don't need to iteratively add noise $t$ times; we can jump directly from $x_0$ to any $x_t$ in a single calculation.
 
 #### Intuitive Meaning
@@ -124,6 +132,7 @@ To address the rapid signal decay of the linear schedule, the cosine schedule wa
 $$
 \bar{\alpha}_t = \frac{f(t)}{f(0)}, \quad f(t) = \cos\left(\frac{t/T + s}{1 + s} \cdot \frac{\pi}{2}\right)^2
 $$
+
 where $s$ is a small offset (typically $0.008$) to prevent $\beta_t$ from being too small at $t=0$. This schedule results in a much smoother decay of the signal, preserving more information for a longer period during the forward process.
 
 The following plots compare the signal weight ($\sqrt{\bar{\alpha}_t}$) and noise weight ($\sqrt{1 - \bar{\alpha}_t}$) for both the linear and cosine schedules.
@@ -138,20 +147,24 @@ Using Bayes' formula, the expression of the true reverse conditional probability
 $$
 q(x_{t-1} | x_t) = q(x_t | x_{t-1}) \frac{q(x_{t-1})}{q(x_t)}
 $$
+
 This is **intractable** (impossible to compute directly) because the expression of $q(x_t)$ (as well as $q(x_{t-1})$) is:
 $$
 q(x_t) = \int q(x_t | x_0) q(x_0) dx_0 \approx \frac{1}{N}\sum_{i=1}^{N}q(x_t | x_{0,i})
 $$
+
 where the distribution of all real images in the world $q(x_0)$ is:
 $$
 q(x_0) \approx \frac{1}{N}\sum_{i=1}^{N}\delta(x_0 - x_{0,i})
 $$
+
 $q(x_t | x_0)$ is known. However, $q(x_0)$ is the distribution of all possible clean images $x_0$. $q(x_t)$ requires integrating over the entire real data distribution, which is infinitely complex. Even if we try to approximate $q(x_t)$ with a lot of real image samples, the amount of calculation needed is impractical since the dimension of $x_0$ is huge (e.g. the dimension is $512^2=262,144$ if the image has size $512\times 512$).
 
 To solve this, we train a neural network $p_\theta$ to **approximate** this intractable reverse step:
 $$
 p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))
 $$
+
 Our main challenge now is: how do we find the training target for the network's predicted mean $\mu_\theta(x_t, t)$ and variance $\Sigma_\theta(x_t, t)$?
 
 ### The Mathematical Trick: Conditioning on $x_0$
@@ -165,9 +178,9 @@ $$
 
 Notice that every single term on the right side of the equation is a forward process probability that we already defined in the previous section.
 
-- $q(x_t | x_{t-1}, x_0)$ is just the standard one-step forward transition $q(x_t | x_{t-1})$, which is $\mathcal{N}(x_t; \sqrt{\alpha_t}x_{t-1}, \beta_t \mathbf{I})$.
-- $q(x_{t-1} | x_0)$ is the "shortcut" transitions that let us jump directly from $x_0$, which is $\mathcal{N}(x_{t-1}; \sqrt{\bar{\alpha}_{t-1}}x_0, (1 - \bar{\alpha}_{t-1})\mathbf{I})$.
--  $q(x_t | x_0)$ is similar to above, which is $\mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}x_0, (1 - \bar{\alpha}_t)\mathbf{I})$.
+- $q(x_t | x_{t-1}, x_0)$ is just the standard one-step forward transition $q(x_t | x_{t-1})$, which is $\mathcal{N}(x_t; \sqrt{\alpha_t}\thinspace x_{t-1}, \beta_t \mathbf{I})$.
+- $q(x_{t-1} | x_0)$ is the "shortcut" transitions that let us jump directly from $x_0$, which is $\mathcal{N}(x_{t-1}; \sqrt{\bar{\alpha}_{t-1}}\thinspace x_0, (1 - \bar{\alpha}_{t-1})\mathbf{I})$.
+- $q(x_t | x_0)$ is similar to above, which is $\mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}\thinspace x_0, (1 - \bar{\alpha}_t)\mathbf{I})$.
 
 The probability density function (PDF) of normal distribution is $f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)$.
 
@@ -195,10 +208,12 @@ $$
 &= -\frac{1}{2} \left[ \left( \frac{\alpha_t}{\beta_t} + \frac{1}{1 - \bar{\alpha}_{t-1}} \right) x_{t-1}^2 - 2 \left( \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}} \right) x_{t-1} + \text{constant} \right]
 \end{align}
 $$
+
 Now we have this form in the exponent:
 $$
 A \cdot x_{t-1}^2 - 2B \cdot x_{t-1} + \text{constant} = \frac{x_{t-1}^2 - 2\frac{B}{A} x_{t-1} + \left( \frac{B}{A} \right)^2 + \left[-\left( \frac{B}{A} \right)^2 + \text{constant}\right]}{\frac{1}{A}}
 $$
+
 where
 $$
 A = \frac{\alpha_t}{\beta_t} + \frac{1}{1 - \bar{\alpha}_{t-1}}
@@ -212,6 +227,7 @@ After removing $\frac{-\frac{C}{A} + \text{constant}}{\frac{1}{A}}$, we have thi
 $$
 \frac{x_{t-1}^2 - 2\frac{B}{A} x_{t-1} + \left( \frac{B}{A} \right)^2}{\frac{1}{A}} = \frac{x_{t-1}^2 - 2\tilde{\mu}_t x_{t-1} + \tilde{\mu}_t^2}{\tilde{\beta}_t}
 $$
+
 So:
 $$
 \begin{align}
@@ -221,10 +237,12 @@ $$
 &= \frac{1 - \bar{\alpha}_t}{\beta_t(1 - \bar{\alpha}_{t-1})}
 \end{align}
 $$
+
 Take the inverse:
 $$
 \tilde{\beta}_t = \frac{1}{A} = \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \cdot \beta_t
 $$
+
 Similarly:
 $$
 \begin{align}
@@ -234,6 +252,7 @@ $$
 &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} x_0
 \end{align}
 $$
+
 Finally, we find that $q(x_{t-1} | x_t, x_0)$ is also a Gaussian distribution:
 $$
 q(x_{t-1} | x_t, x_0) = \mathcal{N}(x_{t-1}; \tilde{\mu}_t(x_t, x_0), \tilde{\beta}_t I)
@@ -262,6 +281,7 @@ To bypass this, we use the forward shortcut formula we derived earlier to expres
 $$
 x_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left(x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon\right)
 $$
+
 If we substitute this definition of $x_0$ back into the complex $\tilde{\mu}_t$ equation above, a gorgeous simplification happens after the algebra settles:
 $$
 \begin{align}
@@ -275,6 +295,7 @@ $$
 &= \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon \right)
 \end{align}
 $$
+
 Look at this elegant result! The only unknown variable left in this ground-truth mean is $\epsilon$—the random noise that was added at timestep $t$.
 
 This reveals the core breakthrough of the DDPM paper: instead of training the neural network to predict the entire complex image mean $\mu_\theta$, we can train it to be **a simple noise predictor $\epsilon_\theta(x_t, t)$** with a simple MSE loss function:
@@ -296,6 +317,7 @@ Using the mathematical breakthrough we derived in the previous section, we can p
 $$
 \mu_\theta(x_t, t) = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)
 $$
+
 For the standard deviation $\sigma_t$, DDPM sets it as a fixed constant, choosing either of the following (the second one produces a more accurate approximation):
 $$
 \sigma_t = \sqrt{\beta_t}
@@ -327,7 +349,7 @@ Therefore, we will do the following sampling steps.
 
 First, approximate the clean image by the predicted noise:
 $$
-\hat{x}_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left( x_t - \sqrt{1 - \bar{\alpha}_t} \, \epsilon_\theta(x_t, t) \right)
+\hat{x}_0 = \frac{1}{\sqrt{\bar{\alpha}_t}} \left( x_t - \sqrt{1 - \bar{\alpha}_t} \thinspace \epsilon_\theta(x_t, t) \right)
 $$
 Then clip the value to a valid range (usually $[-1, 1]$ for pixel values):
 $$
