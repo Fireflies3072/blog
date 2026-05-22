@@ -159,8 +159,9 @@ Our main challenge now is: how do we find the training target for the network's 
 Although $q(x_{t-1} | x_t)$ is intractable, it becomes surprisingly **tractable if we condition it on the original clean image $x_0$**. Think of this as a "cheat code"—if the model knows what the final clean image looks like, calculating the exact reverse step $q(x_{t-1} | x_t, x_0)$ becomes straightforward.
 
 Using Bayes' rule, we can rewrite this conditional probability as:
-
-$$q(x_{t-1} | x_t, x_0) = q(x_t | x_{t-1}, x_0) \frac{q(x_{t-1} | x_0)}{q(x_t | x_0)}$$
+$$
+q(x_{t-1} | x_t, x_0) = q(x_t | x_{t-1}, x_0) \frac{q(x_{t-1} | x_0)}{q(x_t | x_0)}
+$$
 
 Notice that every single term on the right side of the equation is a forward process probability that we already defined in the previous section.
 
