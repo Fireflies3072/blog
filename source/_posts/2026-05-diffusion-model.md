@@ -2,8 +2,8 @@
 title: Understanding Diffusion Models - A Mathematical Derivation
 date: 2026-05-21 15:44:15
 tags: [AI, diffusion]
-categories: [Articles]
-
+categories: [Articles, Reference]
+cover: https://cdn.fireflies3072.com/blog/2026-05-diffusion-model/cover.webp
 mathjax: true
 ---
 
