@@ -1,10 +1,11 @@
 ---
 title: Understanding Diffusion Models - A Mathematical Derivation
 date: 2026-05-21 15:44:15
-tags: [AI, diffusion]
+tags: [AI, diffusion, math]
 categories: [Articles, Reference]
 cover: https://cdn.fireflies3072.com/blog/2026-05-diffusion-model/cover.webp
 mathjax: true
+excerpt: Diffusion models have recently taken the generative AI world by storm, powering state-of-the-art systems like DALL-E 2, Imagen, and Stable Diffusion. Unlike GANs or VAEs, diffusion models work by gradually adding noise to data and then learning to reverse this process.
 ---
 
 ## Introduction

@@ -1,10 +1,11 @@
 ---
 title: Understanding Flow Matching - A Continuous-Time Generative Framework
 date: 2026-05-21 15:44:34
-tags: [AI, diffusion, flow]
+tags: [AI, diffusion, flow, math]
 categories: [Articles, Reference]
 cover: https://cdn.fireflies3072.com/blog/2026-05-flow-matching/cover.jpg
 mathjax: true
+excerpt: Generative modeling has seen a paradigm shift from the stochastic nature of Diffusion Models to the deterministic elegance of Flow Matching (FM). While Diffusion Models rely on reversing a noise-adding SDE, Flow Matching simplifies the problem by learning a velocity field that pushes a simple noise distribution toward the data distribution along a smooth path.
 ---
 
 ## Introduction
