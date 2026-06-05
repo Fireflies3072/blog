@@ -79,6 +79,19 @@ excerpt: This is a concise Signal Formula Sheet containing essential formulas fo
 | $x(t) = e^{-a|t|}, \quad a>0$                                | $X(f) = \frac{2a}{a^2 + (2\pi f)^2}$                         |
 | $x(t) = \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}}$            | $X(f) = e^{-\frac{(2\pi f)^2}{2}} = e^{-2\pi^2 f^2}$         |
 
+| Time Domain                                                  | Frequency Domain                                             |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| $x(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} X(\omega) e^{j\omega t} d\omega$ | $X(\omega) = \int_{-\infty}^{\infty} x(t) e^{-j\omega t} dt$ |
+| $x(t) = \text{rect}\left(\frac{t}{2T}\right) = \begin{cases} 1, & |t|<T \\ 0, & \text{otherwise} \end{cases}$ | $X(\omega) = \frac{2\sin(\omega T)}{\omega}=2T\cdot \text{sinc}\left(\frac{\omega T}{\pi}\right)$ |
+| $x(t) = \frac{\sin(Wt)}{\pi t}=\frac{W}{\pi}\cdot \text{sinc}\left(\frac{Wt}{\pi}\right)$ | $X(\omega) = \text{rect}\left(\frac{\omega}{2W}\right) = \begin{cases} 1, & |\omega|<W \\ 0, & \text{otherwise} \end{cases}$ |
+| $x(t) = \delta(t)$                                           | $X(\omega) = 1$                                              |
+| $x(t) = 1$                                                   | $X(\omega) = 2\pi \delta(\omega)$                            |
+| $x(t) = u(t)$                                                | $X(\omega) = \frac{1}{j\omega} + \pi \delta(\omega)$         |
+| $x(t) = e^{-at} u(t), \quad a > 0$                           | $X(\omega) = \frac{1}{a + j\omega}$                          |
+| $x(t) = t e^{-at} u(t), \quad a > 0$                         | $X(\omega) = \frac{1}{(a + j\omega)^2}$                      |
+| $x(t) = e^{-a|t|}, \quad a>0$                                | $X(\omega) = \frac{2a}{a^2 + \omega^2}$                      |
+| $x(t) = \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}}$            | $X(\omega) = e^{-\frac{\omega^2}{2}}$                        |
+
 ### FT Properties
 
 | Property                         | Transform                                                    |
@@ -94,6 +107,19 @@ excerpt: This is a concise Signal Formula Sheet containing essential formulas fo
 | **Multiplication-Convolution**   | $x(t)y(t) \leftrightarrow X(f) * Y(f)$                       |
 | **Parseval's Theorem**           | $\int_{-\infty}^{\infty}{|x(t)|^2dt}=\int_{-\infty}^{\infty}{|X(f)|^2df}$ |
 
+| Property                         | Transform                                                    |
+| -------------------------------- | ------------------------------------------------------------ |
+| **Linearity**                    | $ax(t)+by(t) \leftrightarrow aX(\omega)+bY(\omega)$          |
+| **Time Shift**                   | $x(t-t_{o}) \leftrightarrow e^{-j\omega t_{o}}X(\omega)$      |
+| **Frequency Shift**              | $e^{j\omega_0 t}x(t) \leftrightarrow X(\omega-\omega_0)$     |
+| **Scaling**                      | $x(at) \leftrightarrow \frac{1}{|a|}X(\frac{\omega}{a})$     |
+| **Differentiation in Time**      | $\frac{d}{dt}x(t) \leftrightarrow j\omega X(\omega)$         |
+| **Differentiation in Frequency** | $-jtx(t) \leftrightarrow \frac{d}{d\omega}X(\omega)$         |
+| **Integration**                  | $\int_{-\infty}^{t}x(\tau)d\tau \leftrightarrow \frac{1}{j\omega}X(\omega) + \pi X(0)\delta(\omega)$ |
+| **Convolution-Multiplication**   | $x(t) * y(t) \leftrightarrow X(\omega)Y(\omega)$             |
+| **Multiplication-Convolution**   | $x(t)y(t) \leftrightarrow \frac{1}{2\pi} X(\omega) * Y(\omega)$ |
+| **Parseval's Theorem**           | $\int_{-\infty}^{\infty}{|x(t)|^2dt}=\frac{1}{2\pi}\int_{-\infty}^{\infty}{|X(\omega)|^2d\omega}$ |
+
 ### Fourier Transform of Periodic Signals
 
 | **Periodic Time Domain Signal**                     | **Fourier Transform X(f)**                                   |
@@ -104,7 +130,13 @@ excerpt: This is a concise Signal Formula Sheet containing essential formulas fo
 | $x(t) = e^{j2\pi pf_0 t}$                           | $X(f) = \delta(f - pf_0)$                                    |
 | $x(t) = \sum_{n=-\infty}^{\infty} \delta(t - nT_s)$ | $X(f) = \frac{1}{T_s} \sum_{k=-\infty}^{\infty} \delta(f - \frac{k}{T_s})$ |
 
-
+| **Periodic Time Domain Signal**                            | **Fourier Transform**                                                    |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| $x(t) \stackrel{FS; \omega_0}{\longleftrightarrow} X[k]$   | $X(\omega) = 2\pi \sum_{k=-\infty}^{\infty} X[k]\delta(\omega - k\omega_0)$          |
+| $x(t) = \cos(p\omega_0 t)$                                 | $X(\omega) = \pi\delta(\omega + p\omega_0) + \pi\delta(\omega - p\omega_0)$          |
+| $x(t) = \sin(p\omega_0 t)$                                 | $X(\omega) = \frac{\pi}{j}\delta(\omega - p\omega_0) - \frac{\pi}{j}\delta(\omega + p\omega_0)$ |
+| $x(t) = e^{jp\omega_0 t}$                                  | $X(\omega) = 2\pi\delta(\omega - p\omega_0)$                                         |
+| $x(t) = \sum_{n=-\infty}^{\infty} \delta(t - nT_s)$        | $X(\omega) = \omega_s \sum_{k=-\infty}^{\infty} \delta(\omega - k\omega_s) \quad \omega_s = \frac{2\pi}{T_s}$ |
 
 ## Fourier Series (FS)
 
@@ -121,6 +153,15 @@ excerpt: This is a concise Signal Formula Sheet containing essential formulas fo
 | $x(t) = \sin(p(2\pi F_0)t)$                                  | $X[k] = \frac{1}{2j}\delta[k - p] - \frac{1}{2j}\delta[k + p]$ |
 | $x(t) = \sum_{p=-\infty}^{\infty} \delta(t - pT)$            | $X[k] = \frac{1}{T} = f_o$                                   |
 
+| Time Domain                                                  | Frequency Domain                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| $x(t) = \sum_{k=-\infty}^{\infty} X[k] e^{jk\omega_0 t}$     | $X[k] = \frac{1}{T_0} \int_{\langle T_0\rangle} x(t)e^{-jk\omega_0 t}dt \quad \omega_0 = \frac{2\pi}{T_0}$ |
+| $x(t) = \begin{cases} 1, & |t|\le T \\ 0, & T<|t|\le \frac{T_0}{2} &\end{cases}$ | $X[k]=\frac{\sin(k\omega_0 T)}{k\pi}=\frac{\omega_0 T}{\pi}\cdot \text{sinc}\left(\frac{k\omega_0 T}{\pi}\right)$ |
+| $x(t) = e^{jp\omega_0 t}$                                    | $X[k] = \delta[k - p]$                                       |
+| $x(t) = \cos(p\omega_0 t)$                                   | $X[k] = \frac{1}{2}\delta[k - p] + \frac{1}{2}\delta[k + p]$ |
+| $x(t) = \sin(p\omega_0 t)$                                   | $X[k] = \frac{1}{2j}\delta[k - p] - \frac{1}{2j}\delta[k + p]$ |
+| $x(t) = \sum_{p=-\infty}^{\infty} \delta(t - pT)$            | $X[k] = \frac{1}{T} = \frac{\omega_0}{2\pi}$                 |
+
 ### FS Properties
 
 | Property                       | Transform                                                    |
@@ -132,6 +173,16 @@ excerpt: This is a concise Signal Formula Sheet containing essential formulas fo
 | **Differentiation in Time**    | $\frac{d}{dt}x(t) \leftrightarrow jk2\pi f_{0}X[k]$          |
 | **Multiplication-Convolution** | $x(t)y(t) \leftrightarrow \sum_{p=-\infty}^{\infty}X[p]Y[k-p]$ |
 | **Parseval's Theorem**         | $\frac{1}{T}\int_{\langle T\rangle}{|x(t)|^2dt}=\Sigma_{k=-\infty}^{\infty}{|X[k]|^2}$ |
+
+| Property                       | Transform                                                    |
+| ------------------------------ | ------------------------------------------------------------ |
+| **Linearity**                  | $ax(t)+by(t) \leftrightarrow aX[k]+bY[k]$                    |
+| **Time Shift**                 | $x(t-t_{0}) \leftrightarrow e^{-jk\omega_{0}t_{0}}X[k]$      |
+| **Frequency Shift**            | $e^{jk_{0}\omega_{0}t}x(t) \leftrightarrow X[k-k_{0}]$       |
+| **Scaling**                    | $x(at) \leftrightarrow X[k]$ (with $\omega_0'=a\omega_0$)    |
+| **Differentiation in Time**    | $\frac{d}{dt}x(t) \leftrightarrow jk\omega_{0}X[k]$          |
+| **Multiplication-Convolution** | $x(t)y(t) \leftrightarrow \sum_{p=-\infty}^{\infty}X[p]Y[k-p]$ |
+| **Parseval's Theorem**         | $\frac{1}{T_0}\int_{\langle T_0\rangle}{|x(t)|^2dt}=\sum_{k=-\infty}^{\infty}{|X[k]|^2}$ |
 
 
 

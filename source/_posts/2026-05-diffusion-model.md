@@ -224,7 +224,7 @@ $$
 B = \frac{\sqrt{\alpha_t}x_t}{\beta_t} + \frac{\sqrt{\bar{\alpha}_{t-1}}x_0}{1 - \bar{\alpha}_{t-1}}
 $$
 
-After removing $\frac{-\frac{C}{A} + \text{constant}}{\frac{1}{A}}$, we have this form:
+After removing $\frac{-\frac{B}{A} + \text{constant}}{\frac{1}{A}}$, we have this form:
 $$
 \frac{x_{t-1}^2 - 2\frac{B}{A} x_{t-1} + \left( \frac{B}{A} \right)^2}{\frac{1}{A}} = \frac{x_{t-1}^2 - 2\tilde{\mu}_t x_{t-1} + \tilde{\mu}_t^2}{\tilde{\beta}_t}
 $$

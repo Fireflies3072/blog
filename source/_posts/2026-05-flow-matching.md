@@ -160,7 +160,7 @@ $$
 
 To satisfy our main Flow Matching theorem, we must treat the starting point $x_0 \sim \mathcal{N}(0, I)$ as a distribution instead of a fixed point. Since our trajectory is defined by the linear interpolation $x_t = (1-t)x_0 + t x_1$, we can derive the strict conditional probability path given only the endpoint $x_1$ as an evolving Gaussian distribution:
 $$
-p_t(x \mid x_1) = \mathcal{N}\big(x; \, t x_1, \, (1-t)^2 I\big)
+p_t(x \mid x_1) = \mathcal{N}\big(x; t x_1, (1-t)^2 I\big)
 $$
 At the boundary $t=0$, this seamlessly simplifies to $p_0(x \mid x_1) = \mathcal{N}(0, I)$, perfectly matching our unconditioned standard Gaussian noise. As $t \to 1$, the variance collapses to $0$ and the distribution sharpens into a Dirac delta function centered exactly at the data point $x_1$.
 
@@ -170,7 +170,7 @@ v_t(x \mid x_1) = \frac{x_1 - x}{1 - t}
 $$
 As the path approaches the data destination ($t \to 1$), this formulation suffers from an analytical singularity where we divide by zero. To ensure numerical stability throughout the entire time horizon, we introduce a minor regularizer $\sigma_{\text{min}}$ (e.g., $10^{-5}$) to the variance:
 $$
-p_t(x \mid x_1) = \mathcal{N}\big(x; \, t x_1, \, [(1-t)^2 + \sigma_{\text{min}}^2] I\big)
+p_t(x \mid x_1) = \mathcal{N}\big(x; t x_1, [(1-t)^2 + \sigma_{\text{min}}^2] I\big)
 $$
 
 ### Derivation of Particle Path and Regularized Velocity Field
