@@ -88,7 +88,7 @@ $$
 $$
 If we define an aggregate, marginal velocity field $v_t(x)$ by taking a posterior-weighted average of all possible conditional fields:
 $$
-v_t(x) = \int v_t(x|x_1) \frac{p_t(x|x_1)q(x_1)}{p_t(x)} dx_1
+v_t(x) = \int v_t(x|x_1) p_t(x_1|x) dx_1 = \int v_t(x|x_1) \frac{p_t(x|x_1)q(x_1)}{p_t(x)} dx_1
 $$
 Then, this $v_t(x)$ is guaranteed to satisfy the **unconditional continuity equation** for the marginal density $p_t(x)$.
 
@@ -220,11 +220,11 @@ Because the neural network $v_\theta(x, t)$ minimizes the objective across the e
 
 By using the joint formulation $v_t(x_t \mid x_0, x_1) = x_1 - x_0$, the expectation over the complex aggregate velocity field simplifies into a straightforward Mean Squared Error (MSE) regression. The neural network $v_\theta(x, t)$ simply takes the current interpolated position and time, and predicts the displacement vector:
 $$
-\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t \sim U[0,1], \, x_1 \sim q(x_1), \, x_0 \sim \mathcal{N}(0,I)} \left\| v_\theta\big((1-t)x_0 + t x_1, \, t\big) - (x_1 - x_0) \right\|_2^2
+\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t \sim U[0,1], x_1 \sim q(x_1), x_0 \sim \mathcal{N}(0,I)} \left\| v_\theta\big((1-t)x_0 + t x_1, t\big) - (x_1 - x_0) \right\|_2^2
 $$
 To address the manifold thickness issue, we can apply a small noise to the interpolated data point:
 $$
-\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t \sim U[0,1], \, x_1 \sim q(x_1), \, x_0 \sim \mathcal{N}(0,I)} \left\| v_\theta\big((1-t)x_0 + t x_1 + \sigma_{\text{min}}\epsilon, \, t\big) - (x_1 - x_0) \right\|_2^2
+\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t \sim U[0,1], x_1 \sim q(x_1), x_0 \sim \mathcal{N}(0,I)} \left\| v_\theta\big((1-t)x_0 + t x_1 + \sigma_{\text{min}}\epsilon, t\big) - (x_1 - x_0) \right\|_2^2
 $$
 
 ## Sampling Process (Inference)
